@@ -1,0 +1,14 @@
+﻿node_modules/
+dist/
+dist-ssr/
+.env
+.env.local
+.env.production
+.env.*.local
+.vite/
+*.local
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml

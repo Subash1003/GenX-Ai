@@ -1,0 +1,361 @@
+.main {
+  flex: 1;
+  min-height: 100vh;
+  padding-bottom: 15vh;
+  position: relative;
+}
+
+.main .nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+  font-size: 18px;
+  color: #585858;
+}
+
+.main .nav p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.main .nav img {
+  width: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.main-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.main .greet {
+  margin: 10px 0px;
+  font-size: 56px;
+  color: #c4c7c5;
+  font-weight: 500;
+  padding: 20px;
+}
+
+.main .greet span {
+  background: linear-gradient(90deg, #4b90ff, #ff5546, #3176e4c5);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation:
+    slideInLeft 2s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    gradientFlow 15s linear 0.7s infinite;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes gradientFlow {
+  from { background-position: 0% 50%; }
+  to   { background-position: 300% 50%; }
+}
+
+/* ===========================
+   CARDS
+=========================== */
+
+.main .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.main .card {
+  height: 200px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f0f4f9;
+  cursor: pointer;
+  position: relative;
+}
+
+.main .card img {
+  width: 35px;
+  padding: 5px;
+  position: absolute;
+  background-color: white;
+  border-radius: 20px;
+  bottom: 10px;
+  right: 10px;
+}
+
+.main .card p {
+  color: #585858;
+  font-size: 17px;
+}
+
+.main .card:hover {
+  background-color: #dfe4ea;
+}
+
+/* ===========================
+   BOTTOM BAR
+=========================== */
+
+.main-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  max-width: 900px;
+  padding: 0px 20px;
+  margin: auto;
+}
+
+.main .bottom-info {
+  font-size: 13px;
+  margin: 15px auto;
+  text-align: center;
+  font-weight: 300;
+}
+
+/* ===========================
+   SEARCH BOX
+=========================== */
+
+.search-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f4f9;
+  border-radius: 16px;
+  padding: 12px 16px;
+  gap: 2px;
+}
+
+.search-box textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 18px;
+  font-family: inherit;
+  line-height: 1.5;
+  min-height: 0px;
+  max-height: 200px;
+  overflow-y: auto;
+  caret-color: #423d3c;
+  padding: 0 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #c4c4c4 transparent;
+}
+
+.search-box textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.search-box textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.search-box textarea::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  border-radius: 20px;
+}
+
+.search-box-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.icons-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icons-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-box-icons img {
+  width: 22px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.search-box-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* ===========================
+   RESULT / CHAT
+=========================== */
+
+
+
+.result {
+  padding: 20px 5px;
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+.result::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-entry {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.chat-entry:last-child {
+  border-bottom: none;
+}
+
+/* ── User message (right side) ── */
+.result-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.result-title p {
+  background-color: #f0f4f9;
+  padding: 10px 16px;
+  border-radius: 18px 18px 4px 18px;
+  max-width: 70%;
+  font-size: 16px;
+  color: #282828;
+  line-height: 1.5;
+}
+
+.result-title img {
+  width: 35px;
+  border-radius: 50%;
+  order: 2;
+}
+
+/* ── AI response (left side) ── */
+.result-data {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  margin: 10px 0;
+}
+
+.result-data img {
+  width: 35px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.result-data p {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.result-data p h1,
+.result-data p h2,
+.result-data p h3,
+.result-data p h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.result-data p ul {
+  padding-left: 20px;
+}
+
+.result-data p li {
+  margin: 4px 0;
+}
+
+.result-data p strong {
+  font-weight: 600;
+}
+
+/* ===========================
+   LOADER
+=========================== */
+
+.loader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loader hr {
+  border-radius: 4px;
+  border: none;
+  background: linear-gradient(to right, #9ed7ff, #ffffff, #9ed7ff);
+  background-size: 800px 20px;
+  height: 20px;
+  animation: loader 2s infinite linear;
+}
+
+@keyframes loader {
+  0%   { background-position: -800px 0px; }
+  100% { background-position: 800px 0px; }
+}
+
+/* ===========================
+   CODE BLOCKS
+=========================== */
+
+.result-data p pre {
+  background-color: #1e1e2e;
+  border-radius: 10px;
+  margin: 16px 0;
+  overflow: hidden;
+  border: 1px solid #313244;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #313244;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #cdd6f4;
+  font-family: monospace;
+}
+
+.copy-btn {
+  background: none;
+  border: 1px solid #585b70;
+  color: #cdd6f4;
+  padding: 2px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.copy-btn:hover {
+  background-color: #45475a;
+}
+
+.result-data p pre code {
+  display: block;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  background: none;
+  color: #cdd6f4;
+}
