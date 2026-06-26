@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/GenX-Ai/',
+  base: process.env.GITHUB_ACTIONS ? '/GenX-Ai/' : '/',
   build: {
     chunkSizeWarningLimit: 200,
     rolldownOptions: {
