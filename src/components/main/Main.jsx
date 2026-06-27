@@ -3,16 +3,14 @@ import './Main.css'
 import { assets } from '../../assets/assets'
 import { Context } from '../../context/Context'
 
-
 const Main = () => {
   const { onSent, recentPrompt, showResult, loading, resultData, setInput, input, chatHistory } = useContext(Context)
-  // const{onSent,prevPrompts,setRecentPrompt } = useContext
   const resultRef = useRef(null);
+
   useEffect(() => {
     if (!resultData) return;
 
     document.querySelectorAll(".result-data pre").forEach((pre) => {
-      // Avoid adding header twice
       if (pre.querySelector(".code-block-header")) return;
 
       const code = pre.querySelector("code");
@@ -20,7 +18,6 @@ const Main = () => {
         .find((c) => c.startsWith("language-"))
         ?.replace("language-", "") || "code";
 
-      // Build header
       const header = document.createElement("div");
       header.className = "code-block-header";
 
@@ -38,24 +35,17 @@ const Main = () => {
 
       header.appendChild(label);
       header.appendChild(btn);
-      pre.insertBefore(header, pre.firstChild);   // prepend header inside <pre>
+      pre.insertBefore(header, pre.firstChild);
     });
   }, [resultData]);
 
   useEffect(() => {
     const textarea = document.querySelector(".search-box textarea");
-
     if (!textarea) return;
-
     textarea.style.height = "auto";
-
     const maxHeight = 200;
-
-    textarea.style.height =
-      Math.min(textarea.scrollHeight, maxHeight) + "px";
-
+    textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + "px";
   }, [input]);
-
 
   useEffect(() => {
     if (resultRef.current) {
@@ -73,11 +63,12 @@ const Main = () => {
 
         {!showResult
           ? <>
-            {/* ---- GREETING + CARDS (shown by default) ---- */}
             <div className="greet">
               <p><span>Hello, dev.!</span></p>
               <p>How can I help you today?</p>
             </div>
+
+            {/* Cards hidden on mobile via CSS */}
             <div className="cards">
               <div className="card" onClick={() => onSent("Suggest beautiful place to see on an upcoming road trip")}>
                 <p>Suggest beautiful place to see on an upcoming road trip</p>
@@ -98,27 +89,19 @@ const Main = () => {
             </div>
           </>
           : <>
-            {/* ---- RESULT (shown after sending a prompt) ---- */}
-            {/* ---- RESULT (shown after sending a prompt) ---- */}
             <div className="result">
               {chatHistory.map((entry, index) => (
                 <div key={index} className="chat-entry">
-
-                  {/* User message */}
                   <div className="result-title">
                     <img src={assets.profile} alt="" />
                     <p>{entry.prompt}</p>
                   </div>
-
-                  {/* AI response */}
                   <div className="result-data">
                     <p dangerouslySetInnerHTML={{ __html: entry.response }}></p>
                   </div>
-
                 </div>
               ))}
 
-              {/* Show loader for the current in-progress response */}
               {loading && (
                 <div className="chat-entry">
                   <div className="result-title">

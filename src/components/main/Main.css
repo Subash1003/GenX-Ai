@@ -197,8 +197,6 @@
    RESULT / CHAT
 =========================== */
 
-
-
 .result {
   padding: 20px 5px;
   max-height: 70vh;
@@ -219,7 +217,6 @@
   border-bottom: none;
 }
 
-/* ── User message (right side) ── */
 .result-title {
   display: flex;
   align-items: center;
@@ -244,7 +241,6 @@
   order: 2;
 }
 
-/* ── AI response (left side) ── */
 .result-data {
   display: flex;
   align-items: flex-start;
@@ -358,4 +354,45 @@
   font-family: 'Fira Code', 'Courier New', monospace;
   background: none;
   color: #cdd6f4;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 768px) {
+  /* Offset main content so it doesn't hide behind the fixed sidebar */
+  .main {
+    margin-left: 60px;
+  }
+
+  /* Shrink greeting text */
+  .main .greet {
+    font-size: 32px;
+    padding: 16px;
+  }
+
+  /* Hide suggestion cards on mobile */
+  .main .cards {
+    display: none;
+  }
+
+  /* Tighten up the bottom bar */
+  .main-bottom {
+    padding: 0 12px;
+  }
+
+  .search-box textarea {
+    font-size: 16px;
+  }
+
+  /* Narrow user bubble on mobile */
+  .result-title p {
+    max-width: 85%;
+    font-size: 15px;
+  }
+
+  .result-data p {
+    font-size: 15px;
+  }
 }
