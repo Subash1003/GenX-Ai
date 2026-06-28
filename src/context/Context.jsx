@@ -20,6 +20,46 @@ const getMarked = async () => {
       },
     })
   );
+
+   marked.use({
+    gfm: true, // enables GFM autolinks like bare https://... URLs
+    renderer: {
+      link({ href, title, text }) {
+        const isYouTube =
+          href.includes("youtube.com") || href.includes("youtu.be");
+
+        const titleAttr = title ? ` title="${title}"` : "";
+
+        if (isYouTube) {
+          // Extract video ID for a thumbnail preview card
+          const videoIdMatch = href.match(
+            /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+          );
+          const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+          if (videoId) {
+            return `
+              <a href="${href}" target="_blank" rel="noopener noreferrer"
+                 class="yt-card"${titleAttr}>
+                <img
+                  src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg"
+                  alt="${text}"
+                  class="yt-thumb"
+                />
+                <span class="yt-label">▶ ${text || "Watch on YouTube"}</span>
+              </a>`;
+          }
+        }
+
+        // ✅ All other links — styled pill/chip
+        return `<a href="${href}" target="_blank" rel="noopener noreferrer"
+                   class="inline-link"${titleAttr}>${text}</a>`;
+      },
+    },
+  });
+
+
+
   markedInstance = marked;
   return markedInstance;
 };

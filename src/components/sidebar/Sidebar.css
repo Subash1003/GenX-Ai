@@ -3,25 +3,40 @@
   margin: 0;
 }
 
+/* ===========================
+   BASE SIDEBAR (tablet+)
+=========================== */
+
 .sidebar {
   min-height: 100vh;
-  max-width: 300px;
-  display: inline-flex;
+  width: 60px;                  /* collapsed icon-only width */
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: #f0f4f9;
-  padding: 15px;
+  padding: 15px 10px;
+  flex-shrink: 0;
+  transition: width 0.25s ease;
+  overflow: hidden;
+}
+
+.sidebar.sidebar-open {
+  width: 260px;                 /* expanded width */
 }
 
 .sidebar img {
   width: 22px;
+  flex-shrink: 0;
 }
 
 .menu {
   display: block;
-  margin-left: 10px;
   cursor: pointer;
 }
+
+/* ===========================
+   TOP SECTION
+=========================== */
 
 .new-chat {
   margin-top: 30px;
@@ -30,15 +45,17 @@
   gap: 10px;
   font-size: 15px;
   border-radius: 50px;
-  padding: 6px 12px;
-  width: 100%;
+  padding: 8px 10px;
   color: gray;
   cursor: pointer;
-  background-color: rgb(218, 222, 227);
+  background-color: #dadee3;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .new-chat img {
-  width: 12px;
+  width: 14px;
+  flex-shrink: 0;
 }
 
 .sidebar .recent {
@@ -46,33 +63,39 @@
   flex-direction: column;
 }
 
-.recent-container .recent .recent-title {
-  position: sticky;
-}
-
 .sidebar .recent-title {
   margin-top: 20px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
 }
 
 .sidebar .recent-entry {
   display: flex;
-  gap: 5px;
+  gap: 8px;
   border-radius: 50px;
-  padding: 10px;
-  padding-right: 40px;
+  padding: 10px 12px;
   cursor: pointer;
   color: #282828;
   font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .sidebar .recent-entry:hover {
   background-color: #e2e6eb;
 }
 
+/* ===========================
+   BOTTOM SECTION
+=========================== */
+
 .sidebar .bottom {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .sidebar .bottom-item {
@@ -86,15 +109,13 @@
   padding: 0 10px;
 }
 
+/* ===========================
+   RECENT CONTAINER
+=========================== */
+
 .recent-container {
   height: 300px;
   overflow-y: auto;
-}
-
-.recent-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .recent-container::-webkit-scrollbar {
@@ -111,71 +132,69 @@
 }
 
 /* ===========================
-   MOBILE
+   MOBILE (<768px)
 =========================== */
 
-/* Dark overlay behind the sidebar */
-.sidebar-overlay {
+/* Floating hamburger button shown when sidebar is closed on mobile */
+.sidebar-hamburger {
   display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 200;
+  background: #f0f4f9;
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-hamburger img {
+  width: 22px;
+  display: block;
+}
+
+/* Dark overlay behind drawer */
+.sidebar-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
   z-index: 99;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
+@media (max-width: 767px) {
+  /* Show the floating hamburger button */
+  .sidebar-hamburger {
+    display: flex;
+  }
+  .sidebar-hamburger img {
+    width: 12px;
+  }
+
+
+  /* Sidebar becomes a fixed off-screen drawer on mobile */
+  .sidebar.sidebar-mobile {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    width: 500px;           /* collapsed: just the menu icon */
-    min-width: unset;
-    max-width: unset;
+    width: 0;
+    min-height: unset;
     z-index: 100;
+    padding: 15px 0;
     overflow: hidden;
-    transition: width 0.25s ease;
+    transition: width 0.25s ease, padding 0.25s ease;
   }
 
-  /* When open, expand to full panel */
-  .sidebar.sidebar-open {
+  .sidebar.sidebar-mobile.sidebar-open {
     width: 260px;
+    padding: 15px 10px;
   }
 
-  /* Show overlay only on mobile when sidebar is open */
-  .sidebar-overlay {
-    display: block;
+  /* Shift main content so hamburger button doesn't cover it */
+  .main {
+    padding-left: 44px;
   }
-
-  /* Hide new-chat text label when collapsed */
-  .sidebar:not(.sidebar-open) .new-chat p {
-    display: none;
-  }
-
-  /* Prevent new-chat from overflowing when collapsed */
-  .sidebar:not(.sidebar-open) .new-chat {
-    padding: 8px;
-    justify-content: center;
-    width: auto;
-  }
-}
-
-@media (max-width: 480px)  {
-    .sidebar {
-  min-height: 100vh;
-  max-width: 50px;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 8px;
-}
-
-.sidebar img {
-  width: 10px;
-}
-
-.sidebar .bottom-item{
- padding: 5px;
-}
-
 }
