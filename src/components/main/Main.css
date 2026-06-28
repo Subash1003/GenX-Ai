@@ -37,7 +37,7 @@
 /* On mobile, nudge the nav title right so it clears the hamburger button */
 @media (max-width: 767px) {
   .main .nav {
-           padding-right: 2px;
+           padding-right: 8px;
         padding-left: 15px;
         padding-bottom: 8vh;
   }
@@ -178,7 +178,6 @@
   right: 0;
   padding: 10px 16px 14px;
   background: white;
-  /* subtle fade so content doesn't hard-cut behind the bar */
   box-shadow: 0 -20px 30px 10px white;
   display: flex;
   flex-direction: column;

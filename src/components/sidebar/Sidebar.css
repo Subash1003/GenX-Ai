@@ -61,6 +61,7 @@
 .sidebar .recent {
   display: flex;
   flex-direction: column;
+  height: 500px;
 }
 
 .sidebar .recent-title {
@@ -96,6 +97,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: 15px;
 }
 
 .sidebar .bottom-item {
