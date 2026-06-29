@@ -25,13 +25,14 @@
 }
 
 .sidebar img {
-  width: 22px;
+  width: 15px;
   flex-shrink: 0;
 }
 
 .menu {
   display: block;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 /* ===========================
@@ -46,9 +47,9 @@
   font-size: 15px;
   border-radius: 50px;
   padding: 8px 10px;
-  color: gray;
+  color: rgb(36, 27, 27);
   cursor: pointer;
-  background-color: #dadee3;
+  background-color:#bfcbda;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -80,7 +81,7 @@
   padding: 10px 12px;
   cursor: pointer;
   color: #282828;
-  font-size: 13px;
+  font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -106,7 +107,7 @@
 }
 
 .sidebar .no-history {
-  font-size: 13px;
+  font-size: 14xpx;
   color: #aaa;
   padding: 0 10px;
 }
@@ -147,14 +148,14 @@
   background: #f0f4f9;
   border: none;
   border-radius: 8px;
-  padding: 6px;
+  padding: 3px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
 }
 
 .sidebar-hamburger img {
-  width: 22px;
+  width: 12px;
   display: block;
 }
 
@@ -170,9 +171,11 @@
   /* Show the floating hamburger button */
   .sidebar-hamburger {
     display: flex;
+    background: #f0f4f9;
+     padding: 3px;
   }
   .sidebar-hamburger img {
-    width: 12px;
+    width: 15px;
   }
 
 
@@ -197,6 +200,6 @@
 
   /* Shift main content so hamburger button doesn't cover it */
   .main {
-    padding-left: 44px;
+    padding:  0px 10px;
   }
 }
