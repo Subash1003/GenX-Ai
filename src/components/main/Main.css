@@ -9,8 +9,8 @@
 
 .main {
   flex: 1;
-  min-height: 90vh;
-  padding-bottom: 5vh;
+  min-height: 100vh;
+  padding-bottom: 15vh;
   position: relative;
 }
 
@@ -69,7 +69,7 @@
 
 .main-container {
   max-width: 780px;
-  margin-top:80px;
+  margin: 60px auto;
   padding: 0 16px;
   width: 100%;
   box-sizing: border-box;
