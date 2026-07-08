@@ -3,7 +3,6 @@ import runChat from "../config/GenX.js";
 
 export const Context = createContext();
 
-// ✅ These load only on first message, not on app startup
 let markedInstance = null;
 const getMarked = async () => {
   if (markedInstance) return markedInstance;
@@ -21,17 +20,15 @@ const getMarked = async () => {
     })
   );
 
-   marked.use({
-    gfm: true, // enables GFM autolinks like bare https://... URLs
+  marked.use({
+    gfm: true,
     renderer: {
       link({ href, title, text }) {
         const isYouTube =
           href.includes("youtube.com") || href.includes("youtu.be");
-
         const titleAttr = title ? ` title="${title}"` : "";
 
         if (isYouTube) {
-          // Extract video ID for a thumbnail preview card
           const videoIdMatch = href.match(
             /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/
           );
@@ -51,14 +48,11 @@ const getMarked = async () => {
           }
         }
 
-        // ✅ All other links — styled pill/chip
         return `<a href="${href}" target="_blank" rel="noopener noreferrer"
                    class="inline-link"${titleAttr}>${text}</a>`;
       },
     },
   });
-
-
 
   markedInstance = marked;
   return markedInstance;
@@ -70,8 +64,10 @@ const ContextProvider = (props) => {
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
+
+  // NEW: chatHistory is now a list of SESSIONS, not flat messages
   const [chatHistory, setChatHistory] = useState([]);
-  const [conversationHistory, setConversationHistory] = useState([]);
+  const [currentChatId, setCurrentChatId] = useState(null);
 
   const onSent = async (prompt) => {
     const query = prompt;
@@ -83,21 +79,48 @@ const ContextProvider = (props) => {
     setShowResult(true);
     setRecentPrompt(query);
 
+    // If there's no active session, create one now (first message of a new chat)
+    let activeId = currentChatId;
+    let activeConvHistory = [];
+
+    if (!activeId) {
+      activeId = Date.now().toString();
+      activeConvHistory = [];
+      setChatHistory(prev => [
+        { id: activeId, title: query.slice(0, 30), messages: [], conversationHistory: [] },
+        ...prev,
+      ]);
+      setCurrentChatId(activeId);
+    } else {
+      // pull the existing session's conversation history for context
+      const session = chatHistory.find(s => s.id === activeId);
+      activeConvHistory = session ? session.conversationHistory : [];
+    }
+
     try {
-      // ✅ marked loads here — only when user sends first message
       const marked = await getMarked();
-      const response = await runChat(query, conversationHistory);
+      const response = await runChat(query, activeConvHistory);
       const html = marked(response);
       setResultData(html);
 
-      setConversationHistory(prev => [
-        ...prev,
+      const newConvHistory = [
+        ...activeConvHistory,
         { role: "user", content: query },
         { role: "assistant", content: response },
-      ]);
+      ];
 
-      setChatHistory(prev => [...prev, { prompt: query, response: html }]);
-
+      // Append this exchange to the CORRECT session only
+      setChatHistory(prev =>
+        prev.map(session =>
+          session.id === activeId
+            ? {
+                ...session,
+                messages: [...session.messages, { prompt: query, response: html }],
+                conversationHistory: newConvHistory,
+              }
+            : session
+        )
+      );
     } catch (error) {
       setResultData("Something went wrong. Please try again.");
       console.error(error);
@@ -106,19 +129,27 @@ const ContextProvider = (props) => {
     }
   };
 
-  // ... rest of your code stays exactly the same
-  const loadHistory = (entry) => {
-    setRecentPrompt(entry.prompt);
-    setResultData(entry.response);
+  // Switch to a previously saved session
+  const loadHistory = (session) => {
+    setCurrentChatId(session.id);
+    if (session.messages.length > 0) {
+      const last = session.messages[session.messages.length - 1];
+      setRecentPrompt(last.prompt);
+      setResultData(last.response);
+    } else {
+      setRecentPrompt("");
+      setResultData("");
+    }
     setShowResult(true);
   };
 
+  // Actually start a fresh session container
   const newChat = () => {
     setShowResult(false);
     setResultData("");
     setRecentPrompt("");
     setInput("");
-    setConversationHistory([]);
+    setCurrentChatId(null); // next onSent() call will create a new session
   };
 
   const contextValue = {
@@ -130,6 +161,7 @@ const ContextProvider = (props) => {
     input,
     setInput,
     chatHistory,
+    currentChatId,
     loadHistory,
     newChat,
   };

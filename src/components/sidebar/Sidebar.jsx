@@ -6,13 +6,12 @@ import { Context } from '../../context/Context'
 const Sidebar = () => {
   const [extended, setExtended] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
-  const { chatHistory, loadHistory, newChat } = useContext(Context)
+  const { chatHistory, currentChatId, loadHistory, newChat } = useContext(Context)
 
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 768
       setIsMobile(mobile)
-      // Auto-close drawer when resizing up to tablet/desktop
       if (!mobile) setExtended(false)
     }
     window.addEventListener('resize', handleResize)
@@ -24,12 +23,10 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Overlay — only rendered on mobile when sidebar is open */}
       {isMobile && extended && (
         <div className="sidebar-overlay" onClick={closeSidebar} />
       )}
 
-      {/* Hamburger trigger — only visible on mobile, floats above content */}
       {isMobile && !extended && (
         <button
           className="sidebar-hamburger"
@@ -66,16 +63,16 @@ const Sidebar = () => {
                   <p className="no-history">No recent chats</p>
                 )}
 
-                {chatHistory.map((entry, index) => (
+                {chatHistory.map((session) => (
                   <div
-                    key={index}
-                    className="recent-entry"
-                    onClick={() => { loadHistory(entry); closeSidebar(); }}
-                    title={entry.prompt}
+                    key={session.id}
+                    className={`recent-entry ${session.id === currentChatId ? 'active' : ''}`}
+                    onClick={() => loadHistory(session)}
+                    title={session.title}
                   >
-                    <p>{entry.prompt.length > 25
-                        ? entry.prompt.slice(0, 25) + '...'
-                        : entry.prompt}
+                    <p>{session.title.length > 25
+                        ? session.title.slice(0, 25) + '...'
+                        : session.title}
                     </p>
                   </div>
                 ))}

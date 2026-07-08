@@ -6,13 +6,17 @@ import { Context } from '../../context/Context'
 const Main = () => {
   const {
     onSent, recentPrompt, showResult, loading,
-    resultData, setInput, input, chatHistory
+    setInput, input, chatHistory, currentChatId
   } = useContext(Context)
 
   const resultRef = useRef(null)
 
+  // Find the active session's messages instead of using a flat chatHistory
+  const currentSession = chatHistory.find(s => s.id === currentChatId)
+  const messages = currentSession ? currentSession.messages : []
+
   useEffect(() => {
-    if (!resultData) return
+    if (messages.length === 0) return
     document.querySelectorAll('.result-data pre').forEach((pre) => {
       if (pre.querySelector('.code-block-header')) return
       const code = pre.querySelector('code')
@@ -39,7 +43,7 @@ const Main = () => {
       header.appendChild(btn)
       pre.insertBefore(header, pre.firstChild)
     })
-  }, [resultData])
+  }, [messages])
 
   useEffect(() => {
     const textarea = document.querySelector('.search-box textarea')
@@ -53,7 +57,7 @@ const Main = () => {
     if (resultRef.current) {
       resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
-  }, [chatHistory, loading])
+  }, [messages, loading])
 
   return (
     <div className='main'>
@@ -62,14 +66,14 @@ const Main = () => {
         <img src={assets.profile} alt="" />
       </div>
 
-      <div className="main-container">
+     <div className="main-container">
         {!showResult ? (
           <>
             <div className="greet">
               <p><span>Hello, dev.!</span></p>
               <p>How can I help you today?</p>
             </div>
-            <div className="cards">
+            <div className="cards"> 
               <div className="card" onClick={() => onSent('Suggest beautiful place to see on an upcoming road trip')}>
                 <p>Suggest beautiful place to see on an upcoming road trip</p>
                 <img src={assets.compass_icon} alt="" />
@@ -90,7 +94,7 @@ const Main = () => {
           </>
         ) : (
           <div className="result" ref={resultRef}>
-            {chatHistory.map((entry, index) => (
+            {messages.map((entry, index) => (
               <div key={index} className="chat-entry">
                 <div className="result-title">
                   <img src={assets.profile} alt="" />
@@ -119,7 +123,6 @@ const Main = () => {
         )}
       </div>
 
-      {/* Fixed bottom bar — always full width, content capped to max-width */}
       <div className="main-bottom">
         <div className="main-bottom-inner">
           <div className="search-box">

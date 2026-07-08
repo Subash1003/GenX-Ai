@@ -15,12 +15,22 @@
 }
 
 .main .nav {
+  position: fixed;
+  top: 0;
+  left: 60px;
+  /* or left: 80px if you have a fixed sidebar */
+  width: 95%;
+  height: 60px;
   display: flex;
   align-items: center;
-  padding: 10px 24px;
   justify-content: space-between;
+  padding: 10px 24px;
   font-size: 18px;
   color: #585858;
+  
+  z-index: 1000;
+  background-color: white;
+  box-sizing: border-box;
 }
 
 .main .nav p:hover {
@@ -29,7 +39,7 @@
 }
 
 .main .nav img {
-  width: 28px;
+  width: 30px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -37,15 +47,29 @@
 /* On mobile, nudge the nav title right so it clears the hamburger button */
 @media (max-width: 767px) {
   .main .nav {
-         padding-right: 8px;
-        padding-left: 32px;
-        padding-bottom: 8vh;
+    position: fixed;
+  top: 0px;
+  left: 30px;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #585858;
+  z-index: 1000;
+  box-sizing: border-box;
+    background-color:white;
+  }
+  .main .nav img{
+    width: 27px;
+    margin-right: 12px;
   }
 }
 
 .main-container {
   max-width: 780px;
-  margin: 0 auto;
+  margin: 80px auto;
   padding: 0 16px;
   width: 100%;
   box-sizing: border-box;
@@ -57,11 +81,12 @@
 
 .main .greet {
   margin: 20px 0 10px;
-  font-size: 52px;
+  font-size: 40px;
   color: #c4c7c5;
   font-weight: 500;
   padding: 20px 0;
 }
+
 
 .main .greet span {
   background: linear-gradient(90deg, #4b90ff, #ff5546, #3176e4c5);
@@ -76,21 +101,34 @@
 }
 
 @keyframes slideInLeft {
-  from { transform: translateX(-60px); opacity: 0; }
-  to   { transform: translateX(0);     opacity: 1; }
+  from {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes gradientFlow {
-  from { background-position: 0% 50%; }
-  to   { background-position: 300% 50%; }
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 300% 50%;
+  }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 770px) {
   .main .greet {
-    font-size: 34px;
+    font-size: 30px;
     padding: 12px 0;
     margin: 10px 0 6px;
   }
+
 }
 
 @media (max-width: 400px) {
@@ -111,7 +149,8 @@
 }
 
 .main .card {
-  height: 200px;
+  height: 150px;
+  width: 200px;
   padding: 15px;
   border-radius: 12px;
   background-color: #f0f4f9;
@@ -176,29 +215,50 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px 16px 14px;
-  background: white;
-  box-shadow: 0 -20px 30px 10px white;
+  padding: 10px;
+  padding-bottom: 0px;
+  /* background: white; */
+  /* box-shadow: 0 -20px 30px 10px white; */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   z-index: 10;
+}
+
+@media (max-width:767px) {
+  .main-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 16px 14px;
+    background: white;
+    box-shadow: 0 -20px 30px 10px white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+  }
 }
 
 /* inner wrapper keeps the search box capped at the same width as content */
 .main-bottom-inner {
   width: 100%;
+  background-color: white;
+
 
 }
 
 .main .bottom-info {
   font-size: 12px;
-  margin: 8px auto 0;
+  margin: 0px auto;
   text-align: center;
   font-weight: 300;
   color: #888;
   max-width: 780px;
   width: 100%;
+  padding: 5px 0px;
+  background-color: white;
 }
 
 /* ===========================
@@ -215,6 +275,7 @@
   width: 50%;
   margin: 0px 25%;
   box-sizing: border-box;
+  box-shadow: 0 -20px 30px 10px white;
 }
 
 .search-box textarea {
@@ -236,8 +297,14 @@
   box-sizing: border-box;
 }
 
-.search-box textarea::-webkit-scrollbar { width: 5px; }
-.search-box textarea::-webkit-scrollbar-track { background: transparent; }
+.search-box textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.search-box textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .search-box textarea::-webkit-scrollbar-thumb {
   background-color: #c4c4c4;
   border-radius: 20px;
@@ -251,8 +318,17 @@
   padding-top: 10px;
 }
 
-.icons-left  { display: flex; align-items: center; gap: 10px; }
-.icons-right { display: flex; align-items: center; gap: 14px; }
+.icons-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icons-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
 .search-box-icons img {
   width: 22px;
@@ -295,6 +371,7 @@
   margin-bottom: 28px;
   padding-bottom: 24px;
   border-bottom: 1px solid #f0f0f0;
+  padding-left: 20px;
 }
 
 .chat-entry:last-child {
@@ -321,7 +398,7 @@
 }
 
 .result-title img {
-  width: 34px;
+  width: 30px;
   border-radius: 50%;
   order: 2;
   flex-shrink: 0;
@@ -356,9 +433,17 @@
   margin: 8px 0;
 }
 
-.result-data p ul { padding-left: 20px; }
-.result-data p li { margin: 4px 0; }
-.result-data p strong { font-weight: 600; }
+.result-data p ul {
+  padding-left: 20px;
+}
+
+.result-data p li {
+  margin: 4px 0;
+}
+
+.result-data p strong {
+  font-weight: 600;
+}
 
 @media (max-width: 767px) {
   .result-title p {
@@ -373,8 +458,8 @@
   }
 
   .result-data p {
-           font-size: 14px;
-        line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.5;
   }
 
   .result-data p h1,
@@ -393,6 +478,7 @@
   font-weight: 500;
   transition: color 0.15s;
 }
+
 .result-data a.inline-link:hover {
   color: #2563eb;
 }
@@ -412,9 +498,11 @@
   max-width: 420px;
   transition: background 0.2s;
 }
+
 .result-data a.yt-card:hover {
   background: #2a2a2a;
 }
+
 .result-data .yt-thumb {
   width: 100px;
   height: 56px;
@@ -422,6 +510,7 @@
   border-radius: 6px;
   flex-shrink: 0;
 }
+
 .result-data .yt-label {
   font-size: 0.9rem;
   font-weight: 500;
@@ -449,8 +538,13 @@
 }
 
 @keyframes loader {
-  0%   { background-position: -800px 0px; }
-  100% { background-position: 800px 0px; }
+  0% {
+    background-position: -800px 0px;
+  }
+
+  100% {
+    background-position: 800px 0px;
+  }
 }
 
 /* ===========================
@@ -487,7 +581,9 @@
   transition: background 0.2s;
 }
 
-.copy-btn:hover { background-color: #45475a; }
+.copy-btn:hover {
+  background-color: #45475a;
+}
 
 .result-data p pre code {
   display: block;
@@ -499,3 +595,5 @@
   background: none;
   color: #cdd6f4;
 }
+
+
