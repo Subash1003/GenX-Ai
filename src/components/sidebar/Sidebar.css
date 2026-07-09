@@ -189,6 +189,7 @@
     display: flex;
     background: #f0f4f9;
      padding: 3px;
+     z-index: 10000;
   }
   .sidebar-hamburger img {
     width: 15px;
