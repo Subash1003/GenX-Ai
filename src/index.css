@@ -9,6 +9,11 @@
   font-family: outfit;
 }
 #root{
-  min-height: 100vh;
-  
+  min-height: 100%;
+  /* display:flex; */
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
 }

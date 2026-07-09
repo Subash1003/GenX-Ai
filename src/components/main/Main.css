@@ -18,17 +18,21 @@
   left: 60px;
   /* or left: 80px if you have a fixed sidebar */
   width: 95%;
-  height: 60px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 24px;
-  font-size: 18px;
+  font-size: 20px;
   color: #585858;
   
   z-index: 1000;
   background-color: white;
   box-sizing: border-box;
+}
+
+.main .nav .p{
+  padding-bottom: 5px;
 }
 
 .main .nav p:hover {
@@ -46,16 +50,16 @@
 @media (max-width: 767px) {
 
   .main .nav {
-    position: fixed;
+    position:fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px 24px 10px 55px; /* left padding clears the hamburger icon instead */
+    padding: 10px 20px 10px 55px; /* left padding clears the hamburger icon instead */
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 16px;
+    font-size: 17px;
     color: #585858;
     z-index: 1000;
     box-sizing: border-box;
@@ -77,12 +81,9 @@
 @media (max-width: 767px){
   .main-container {
   margin: 0px auto;
-  margin-top: 50px;
+  margin-top: 130px;
   padding: 0 16px;
   box-sizing: border-box;
-}
-.main-container .cards{
-
 }
 }
 
@@ -100,7 +101,7 @@
 
 
 .main .greet span {
-  background: linear-gradient(90deg, #4b90ff, #ff5546, #3176e4c5);
+  background: linear-gradient(90deg, #4b90ff, #ff5546, rgba(128, 0, 128, 0.736), #3176e4c5);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -135,7 +136,7 @@
 
 @media (max-width: 770px) {
   .main .greet {
-    font-size: 30px;
+    font-size: 32px;
     padding: 12px 0;
     margin: 10px 0 6px;
   }
@@ -161,7 +162,7 @@
 
 .main .card {
   height: 150px;
-  width: 200px;
+  width: auto;
   padding: 15px;
   border-radius: 12px;
   background-color: #f0f4f9;
@@ -197,12 +198,12 @@
   }
 
   .main .card {
-    height: 100px;
+    height: 130px;
     padding: 12px;
   }
 
   .main .card p {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .main .card img {
@@ -214,7 +215,6 @@
 @media (max-width: 400px) {
   .main .card {
     height: 120px;
-    width: 120px;
     
   }
 }
@@ -229,7 +229,7 @@
   left: 0;
   right: 0;
   padding: 10px;
-  padding-bottom: 0px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   /* background: white; */
   /* box-shadow: 0 -20px 30px 10px white; */
   display: flex;
@@ -244,7 +244,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 10px 16px 14px;
+    padding: 5px 16px 10px;
     background: white;
     box-shadow: 0 -20px 30px 10px white;
     display: flex;
@@ -270,7 +270,7 @@
   color: #888;
   max-width: 780px;
   width: 100%;
-  padding: 5px 0px;
+  padding:5px 0px;
   background-color: white;
 }
 
