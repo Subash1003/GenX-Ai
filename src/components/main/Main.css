@@ -17,7 +17,7 @@
   top: 0;
   left: 60px;
   /* or left: 80px if you have a fixed sidebar */
-  width: 95%;
+  width: 97%;
   height: 50px;
   display: flex;
   align-items: center;
@@ -74,7 +74,7 @@
 
 .main-container {
   max-width: 780px;
-  margin: 60px auto;
+  margin: 150px auto;
   width: 100%;
   box-sizing: border-box;
 }
@@ -101,7 +101,7 @@
 
 
 .main .greet span {
-  background: linear-gradient(90deg, #4b90ff, #ff5546, rgba(128, 0, 128, 0.736), #3176e4c5);
+  background: linear-gradient(90deg, #4b90ff, #df1e0dad,  rgba(128, 0, 128, 0.736), #3176e4c5);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
