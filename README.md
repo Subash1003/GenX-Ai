@@ -22,4 +22,4 @@ An AI-powered chat assistant built with React + Vite, powered by Google Gemini.
 ```
 
 ## Live Demo
-[GenX-AI](https://subash1003.github.io/GenX-Ai)
+[GenX-AI](https://gen-x-ai-two.vercel.app/)
