@@ -1,6 +1,7 @@
 # GenX-AI 
 
-An AI-powered chat assistant built with React + Vite, powered by Google Gemini.
+ Built a conversational AI web application capable of answering questions, generating text, translating, and summarizing
+content using an LLM API.
 
 ## Getting Started
 
